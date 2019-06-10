@@ -2,7 +2,7 @@
 FactoryBot.define do
   factory :movie do
     trait :full do
-      title { "MyString" }
+      title { "The good father" }
       description { "MyText" }
       status { 1 }
       stock { 1 }

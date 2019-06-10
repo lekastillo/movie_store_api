@@ -42,16 +42,37 @@ RSpec.describe V1::MoviesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "returns a success response" do
-      movie = Movie.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
+    context 'without sort_by param' do
+      it "returns a success response" do
+        movie = FactoryBot.create(:movie, :full)
+
+        get :index, params: {}, session: valid_session
+        expect(response).to be_successful
+      end
     end
+    context 'with sort_by param' do
+      it "returns a success response" do
+        movie = FactoryBot.create(:movie, :full)
+
+        get :index, params: {sort_by: 'title', direction: :asc}, session: valid_session
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with search params' do
+      it "returns a success response" do
+        movie = FactoryBot.create(:movie, :full)
+
+        get :index, params: {q: 'father'}, session: valid_session
+        expect(response).to be_successful
+      end
+    end
+
   end
 
   describe "GET #show" do
     it "returns a success response" do
-      movie = Movie.create! valid_attributes
+      movie = FactoryBot.create(:movie, :full)
       get :show, params: {id: movie.to_param}, session: valid_session
       expect(response).to be_successful
     end

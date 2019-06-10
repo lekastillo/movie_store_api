@@ -3,8 +3,7 @@ class V1::MoviesController < ApplicationController
 
   # GET /movies
   def index
-    page = params[:page][:number] rescue 1
-    @movies = OrderedMoviesQuery.new(sort_query_params).all.page(page)
+    @movies = EnabledMoviesQuery.new(sorted_movies).all
 
     render json: @movies
   end
@@ -52,5 +51,10 @@ class V1::MoviesController < ApplicationController
 
     def sort_query_params
       params.slice(:sort_by, :direction)
+    end
+
+    def sorted_movies
+      page = params[:page][:number] rescue 1
+      OrderedMoviesQuery.new(sort_query_params).all.page(page)
     end
 end
