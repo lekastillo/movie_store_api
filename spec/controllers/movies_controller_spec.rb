@@ -59,14 +59,6 @@ RSpec.describe V1::MoviesController, type: :controller do
       end
     end
 
-    context 'with search params' do
-      it "returns a success response" do
-        movie = FactoryBot.create(:movie, :full)
-
-        get :index, params: {q: 'father'}, session: valid_session
-        expect(response).to be_successful
-      end
-    end
 
   end
 

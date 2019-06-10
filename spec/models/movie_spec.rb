@@ -37,7 +37,7 @@ end
 #  id                            :bigint           not null, primary key
 #  title                         :string
 #  description                   :text
-#  status                        :integer          default(0)
+#  status                        :integer          default("available")
 #  stock                         :integer          default(0)
 #  rental_price                  :decimal(5, 1)    default(0.0)
 #  sale_price                    :decimal(5, 1)    default(0.0)

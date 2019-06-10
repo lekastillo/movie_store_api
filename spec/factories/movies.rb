@@ -2,7 +2,7 @@
 FactoryBot.define do
   factory :movie do
     trait :full do
-      title { "The good father" }
+      title { "The goodfather" }
       description { "MyText" }
       status { 1 }
       stock { 1 }
@@ -30,7 +30,7 @@ end
 #  id                            :bigint           not null, primary key
 #  title                         :string
 #  description                   :text
-#  status                        :integer          default(0)
+#  status                        :integer          default("available")
 #  stock                         :integer          default(0)
 #  rental_price                  :decimal(5, 1)    default(0.0)
 #  sale_price                    :decimal(5, 1)    default(0.0)

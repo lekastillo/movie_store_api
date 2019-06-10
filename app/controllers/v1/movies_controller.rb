@@ -3,7 +3,8 @@ class V1::MoviesController < ApplicationController
 
   # GET /movies
   def index
-    @movies = EnabledMoviesQuery.new(sorted_movies).all
+    page = params[:page][:number] rescue 1
+    @movies = OrderedMoviesQuery.new(sort_query_params, search_result_movie).all.page(page)
 
     render json: @movies
   end
@@ -16,6 +17,7 @@ class V1::MoviesController < ApplicationController
   # POST /movies
   def create
     @movie = Movie.new(movie_params)
+    movie_attach_covers
 
     if @movie.save
       render json: @movie, status: :created, location: @movie
@@ -46,15 +48,41 @@ class V1::MoviesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def movie_params
-      params.require(:movie).permit(:title, :description, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount, covers: [])
+      params.require(:movie).permit(:title, :description, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount)
     end
 
     def sort_query_params
       params.slice(:sort_by, :direction)
     end
 
-    def sorted_movies
-      page = params[:page][:number] rescue 1
-      OrderedMoviesQuery.new(sort_query_params).all.page(page)
+    def search_query_params
+      params.slice(:q)
+    end
+
+    def available_movies
+      EnabledMoviesQuery.new().all
+    end
+
+    def search_result_movie
+      SearchMoviesQuery.new(search_query_params, available_movies).all
+    end
+    # def cover_io
+    #   decoded_image = Base64.decode64(params[:movie][:cover])
+    #   StringIO.new(decoded_image)
+    # end
+
+    def cover_name
+      params[:movie][:file_name]
+    end
+
+    def movie_attach_covers
+      params[:movie][:covers] & params[:movie][:covers].each do |cover|
+
+        # binding.pry
+
+        decoded_image = Base64.decode64(cover[:cover])
+        string_image_decoded = StringIO.new(decoded_image)
+        @movie.covers.attach(io: string_image_decoded, filename: cover[:file_name])
+      end
     end
 end

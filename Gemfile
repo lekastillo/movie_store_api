@@ -61,4 +61,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'kaminari', '~> 1.1.1'
-gem 'aasm'
+gem 'aasm', '~> 5.0.5'
+gem 'pg_search', '~> 2.2.0'
+gem 'everett'
+
+
