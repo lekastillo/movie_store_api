@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       end
     end
 
-    
+    resources :user_favorite_movies, path: '/favorite_movies'
+
+    resources :purchases, only: [:index, :show, :create]
   end
 end

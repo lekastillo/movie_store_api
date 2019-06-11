@@ -12,7 +12,7 @@ class OrderedMoviesQuery
 
   private
   def sort_by
-    @params[:sort].presence_in(SORT_OPTIONS) || :by_title
+    @params[:sort_by].presence_in(SORT_OPTIONS) || :by_title
   end
 
   def direction

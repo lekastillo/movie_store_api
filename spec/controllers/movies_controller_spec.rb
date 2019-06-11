@@ -24,7 +24,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe V1::MoviesController, type: :controller do
-
+  login_user
   # This should return the minimal set of attributes required to create a valid
   # Movie. As you add validations to Movie, be sure to
   # adjust the attributes here as well.
@@ -51,6 +51,7 @@ RSpec.describe V1::MoviesController, type: :controller do
       end
     end
     context 'with sort_by param' do
+
       it "returns a success response" do
         movie = FactoryBot.create(:movie, :full)
 

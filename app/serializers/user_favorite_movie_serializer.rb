@@ -1,10 +1,8 @@
-class UserFavoriteMovie < ApplicationRecord
-  paginates_per 10
-
+class UserFavoriteMovieSerializer < ActiveModel::Serializer
+  belongs_to :movie
   belongs_to :user
-  belongs_to :movie, counter_cache: true
-  validates :user_id, :movie_id, presence: true
-  validates :movie_id, uniqueness: {scope: :user_id}
+  attributes :id, :user, :movie
+
 end
 
 # == Schema Information

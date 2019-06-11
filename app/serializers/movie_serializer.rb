@@ -1,9 +1,13 @@
 class MovieSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :title, :description, :status, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount, :covers
+  attributes :id, :title, :description, :status, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount, :covers, :likes
   def covers
     object.covers.map { |cover| rails_blob_path(cover, only_path: true) }  if object.covers.attached?
+  end
+
+  def likes
+    object.user_favorite_movies_count
   end
 
 end

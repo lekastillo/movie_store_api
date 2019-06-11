@@ -4,7 +4,7 @@ class Movie < ApplicationRecord
   include AASM
   include PgSearch
 
-  paginates_per 3
+  paginates_per 10
   has_many_attached :covers
   validates :title, :description, :status, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount, presence: true
   validates :stock, numericality: { only_integer: true, greater_than: 0 }, on: :create
@@ -16,7 +16,7 @@ class Movie < ApplicationRecord
   enum status: [:available, :unavailable]
 
   scope :by_title, ->(direction) { order title: direction }
-  scope :by_popularity, ->(direction) { order title: direction }
+  scope :by_popularity, ->(direction) { order user_favorite_movies_count: direction }
 
   pg_search_scope :search, against: :title, using: { tsearch: { prefix: true } }
 

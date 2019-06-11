@@ -2,7 +2,7 @@ class V1::MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :update, :destroy, :enable, :disable]
   # before_action :doorkeeper_authorize!
 
-  before_action -> { doorkeeper_authorize! :public }, only: :index
+  # before_action -> { doorkeeper_authorize! :public, :admin }, only: :index
   before_action only: [:update, :create, :destroy, :enable, :disable] do
     doorkeeper_authorize! :admin
   end
@@ -48,13 +48,13 @@ class V1::MoviesController < ApplicationController
 
   # PUT /movies/1/enable
   def enable
-    @movie.enable!
+    @movie.enable! if @movie.unavailable?
     render json: @movie
   end
 
   # PUT /movies/1/disable
   def disable
-    @movie.disable!
+    @movie.disable! if @movie.available?
     render json: @movie
   end
 
@@ -82,7 +82,14 @@ class V1::MoviesController < ApplicationController
     end
 
     def search_result_movie
-      SearchMoviesQuery.new(search_query_params, available_movies).all
+
+      if doorkeeper_token and doorkeeper_token.scopes.include?("admin") and params[:status]
+        # available
+        # unavailable
+        SearchMoviesQuery.new(search_query_params, Movie.where(status: params[:status])).all
+      else
+        SearchMoviesQuery.new(search_query_params, available_movies).all
+      end
     end
 
     def cover_name
