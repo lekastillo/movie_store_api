@@ -1,6 +1,6 @@
 class UserFavoriteMovie < ApplicationRecord
   belongs_to :user
-  belongs_to :movie
+  belongs_to :movie, counter_cache: true
   validates :user_id, :movie_id, presence: true
   validates :movie_id, uniqueness: {scope: :user_id}
 end

@@ -1,5 +1,11 @@
 class V1::MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :update, :destroy]
+  before_action :set_movie, only: [:show, :update, :destroy, :enable, :disable]
+  # before_action :doorkeeper_authorize!
+
+  before_action -> { doorkeeper_authorize! :public }, only: :index
+  before_action only: [:update, :create, :destroy, :enable, :disable] do
+    doorkeeper_authorize! :admin
+  end
 
   # GET /movies
   def index
@@ -40,6 +46,18 @@ class V1::MoviesController < ApplicationController
     @movie.destroy
   end
 
+  # PUT /movies/1/enable
+  def enable
+    @movie.enable!
+    render json: @movie
+  end
+
+  # PUT /movies/1/disable
+  def disable
+    @movie.disable!
+    render json: @movie
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
@@ -66,10 +84,6 @@ class V1::MoviesController < ApplicationController
     def search_result_movie
       SearchMoviesQuery.new(search_query_params, available_movies).all
     end
-    # def cover_io
-    #   decoded_image = Base64.decode64(params[:movie][:cover])
-    #   StringIO.new(decoded_image)
-    # end
 
     def cover_name
       params[:movie][:file_name]
@@ -77,8 +91,6 @@ class V1::MoviesController < ApplicationController
 
     def movie_attach_covers
       params[:movie][:covers] & params[:movie][:covers].each do |cover|
-
-        # binding.pry
 
         decoded_image = Base64.decode64(cover[:cover])
         string_image_decoded = StringIO.new(decoded_image)

@@ -1,5 +1,6 @@
 class Movie < ApplicationRecord
   has_many :movie_updates
+  has_many :user_favorite_movies
   include AASM
   include PgSearch
 
@@ -48,4 +49,5 @@ end
 #  delayed_return_penalty_amount :decimal(5, 1)    default(0.0)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
+#  user_favorite_movies_count    :integer          default(0)
 #

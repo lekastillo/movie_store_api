@@ -42,6 +42,8 @@ module MovieStore
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
     config.autoload_paths += %W(#{config.root}/app/observers)
+    config.autoload_paths << "#{Rails.root}/lib"
+
 
   end
 end
