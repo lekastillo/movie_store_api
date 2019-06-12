@@ -37,6 +37,7 @@ class V1::MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   def update
     if @movie.update(movie_params)
+      movie_attach_covers
       render json: @movie
     else
       render json: @movie.errors, status: :unprocessable_entity
