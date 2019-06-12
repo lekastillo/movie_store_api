@@ -15,4 +15,4 @@ This README tell you how to setup this project.
 - Done
 
 * Endpoints
-  json_include
+  endpoints_movie_store.json RestLet Client
