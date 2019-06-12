@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+This README tell you how to setup this project.
 
 * Ruby version
+  ruby '2.6.3'
+  rails '5.2.3'
 
-* System dependencies
+* Intruccion
 
-* Configuration
+- clone
+- db:create
+- db:migrate
+- db:seed  // Witoh examples of movies, users and admins
+- Done
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Endpoints
+  json_include
