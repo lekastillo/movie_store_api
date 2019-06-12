@@ -5,7 +5,7 @@
     {
       "type": "Project",
       "id": "15e38d9e-d17a-4e56-a86a-559f095e0090",
-      "lastModified": "2019-06-11T23:12:44.855-06:00",
+      "lastModified": "2019-06-11T23:22:56.266-06:00",
       "name": "Movie Store"
     },
     {
@@ -174,7 +174,7 @@
         },
         "bodyType": "Text",
         "autoSetLength": true,
-        "textBody": "{\n  \"rent\":{\n    \"user_id\": 1,\n    \"rental_end_date\": \"2019-06-20\",\n    \"movie_rents_attributes\": [\n    \t{\"movie_id\": 4, \"quantity\": 1},\n    \t{\"movie_id\": 6, \"quantity\": 1},\n        {\"movie_id\": 7, \"quantity\": 1}\n    ]\n  }\n}"
+        "textBody": "{\n  \"purchase\":{\n    \"user_id\": 1,\n    \"movie_purchases_attributes\": [\n    \t{\"movie_id\": 3, \"quantity\": 1},\n    \t{\"movie_id\": 2, \"quantity\": 1},\n        {\"movie_id\": 1, \"quantity\": 1}\n    ]\n  }\n}"
       },
       "headersType": "Form",
       "uri": {
@@ -188,10 +188,10 @@
           "version": "V11"
         },
         "host": "applaudo-movie-store-api.herokuapp.com",
-        "path": "/v1/rents"
+        "path": "/v1/purchases"
       },
       "id": "c0675401-112f-4392-8a84-4a1682675607",
-      "lastModified": "2019-06-11T23:11:37.038-06:00",
+      "lastModified": "2019-06-11T23:22:56.266-06:00",
       "name": "Create User Purchase",
       "headers": [
         {
@@ -202,7 +202,7 @@
         {
           "enabled": true,
           "name": "Authorization",
-          "value": "Bearer gw8iLznL71HAHIK7gemkrAp-cnNxaNHW1pPrcNhodus"
+          "value": "Bearer qbgcYumcVgxtQLHmz-eXsNQ251MJUifYx9cUnAcR1js"
         }
       ],
       "metaInfo": {
@@ -714,13 +714,13 @@
         "path": "/v1/purchases"
       },
       "id": "a2fe1ced-b59f-4bef-a525-7876f95b3b9e",
-      "lastModified": "2019-06-11T23:09:46.534-06:00",
+      "lastModified": "2019-06-11T23:22:07.683-06:00",
       "name": "Get User Purchases",
       "headers": [
         {
           "enabled": true,
           "name": "Authorization",
-          "value": "Bearer zO0V24-uigXSrftkGBWIR91veSuu9AlCiL7toZrqw3Y"
+          "value": "Bearer qbgcYumcVgxtQLHmz-eXsNQ251MJUifYx9cUnAcR1js"
         }
       ],
       "metaInfo": {
@@ -869,13 +869,13 @@
         "path": "/v1/rents"
       },
       "id": "a63c3746-dd9e-49db-96df-04907d5ee4c2",
-      "lastModified": "2019-06-11T23:09:28.783-06:00",
+      "lastModified": "2019-06-11T23:21:23.607-06:00",
       "name": "Get User Rents",
       "headers": [
         {
           "enabled": true,
           "name": "Authorization",
-          "value": "Bearer yq01XjW2puafwxNehEimKM2crPQiaiwbOcMZ6z_ZMgk"
+          "value": "Bearer qbgcYumcVgxtQLHmz-eXsNQ251MJUifYx9cUnAcR1js"
         }
       ],
       "metaInfo": {
