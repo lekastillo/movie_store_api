@@ -1,6 +1,7 @@
 class MovieUpdate < ApplicationRecord
   paginates_per 10
   belongs_to :movie
+  belongs_to :admin, optional: true
   validates :field, :previus_value, :movie_id, presence: true
 
 end
