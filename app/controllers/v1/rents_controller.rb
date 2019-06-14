@@ -5,7 +5,7 @@ class V1::RentsController < ApplicationController
   # GET /v1/rents
   def index
     page = params[:page] rescue 1
-    @rents = current_resource_owner.rents.all.page(page)
+    @rents = OrderedRentsQuery.new(sort_query_params, filtered_rents).all.page(page)
 
     render json: @rents
   end
@@ -34,6 +34,21 @@ class V1::RentsController < ApplicationController
   end
 
   private
+    def filtered_rents
+      if params[:filter_by] and params[:filter_value]
+        FilterRentsQuery.new(filter_query_params, current_resource_owner.rents).all
+      else
+        current_resource_owner.rents
+      end
+    end
+
+    def sort_query_params
+      params.slice(:sort_by, :direction)
+    end
+
+    def filter_query_params
+      params.slice(:filter_by, :filter_value)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_rent
       @rent = current_resource_owner.rents.find(params[:id])

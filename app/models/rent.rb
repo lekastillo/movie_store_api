@@ -16,9 +16,11 @@ class Rent < ApplicationRecord
 
   enum status: [:pending, :done, :late]
 
-  scope :by_end_date, ->(direction) { order rental_end_date: direction }
+  scope :by_date, ->(direction) { order rental_end_date: direction }
   scope :by_total_to_pay, ->(direction) { order total_to_pay: direction }
-  scope :filter_by, ->(status) { order status: status }
+  scope :by_status, ->(direction) { order status: direction }
+  scope :filter_by_status, ->(filter_value) { where status: filter_value }
+  scope :filter_by_date, ->(filter_value) { where rental_end_date: filter_value }
 
   aasm :column => :status, :enum => true do
     state :pending, :initial => true
