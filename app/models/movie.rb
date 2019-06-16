@@ -1,17 +1,16 @@
 class Movie < ApplicationRecord
+  paginates_per 10
   has_many :movie_updates
   has_many :user_favorite_movies
   include AASM
   include PgSearch
 
-  paginates_per 10
   has_many_attached :covers
   validates :title, :description, :status, :stock, :rental_price, :sale_price, :delayed_return_penalty_amount, presence: true
   validates :stock, numericality: { only_integer: true, greater_than: 0 }, on: :create
   validates :rental_price, :sale_price, :delayed_return_penalty_amount, numericality: { greater_than: 0 }, on: :create
 
-  attr_accessor :doc_contents
-  attr_accessor :doc_name
+  attr_accessor :admin_id
 
   enum status: [:available, :unavailable]
 

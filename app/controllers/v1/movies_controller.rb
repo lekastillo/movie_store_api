@@ -1,15 +1,17 @@
 class V1::MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :update, :destroy, :enable, :disable]
+  before_action :set_movie, only: [:show, :update, :destroy, :enable, :disable, :log]
   # before_action :doorkeeper_authorize!
 
   # before_action -> { doorkeeper_authorize! :public, :admin }, only: :index
-  before_action only: [:update, :create, :destroy, :enable, :disable] do
+  before_action only: [:update, :create, :destroy, :enable, :disable, :log] do
     doorkeeper_authorize! :admin
   end
 
+  attr_accessor :admin_id
+
   # GET /movies
   def index
-    page = params[:page][:number] rescue 1
+    page = params[:page] rescue 1
     @movies = OrderedMoviesQuery.new(sort_query_params, search_result_movie).all.page(page)
 
     render json: @movies
@@ -56,6 +58,12 @@ class V1::MoviesController < ApplicationController
   def disable
     @movie.disable! if @movie.available?
     render json: @movie
+  end
+
+  def log
+    page = params[:page] rescue 1
+    @movie_updates = @movie.movie_updates
+    render json: @movie_updates.all.page(page)
   end
 
   private

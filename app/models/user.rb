@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :rememberable, :trackable
   has_many :user_favorite_movies
   has_many :purchases
+  has_many :rents
   validates :full_name, :email, presence: true
   validates :email, uniqueness: true
 

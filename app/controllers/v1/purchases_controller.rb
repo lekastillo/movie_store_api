@@ -4,7 +4,7 @@ class V1::PurchasesController < ApplicationController
 
   # GET /v1/purchases
   def index
-    page = params[:page][:number] rescue 1
+    page = params[:page] rescue 1
     @purchases = current_resource_owner.purchases.all.page(page)
 
     render json: @purchases
@@ -26,11 +26,6 @@ class V1::PurchasesController < ApplicationController
     else
       render json: @purchase.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /v1/purchases/1
-  def destroy
-    @purchase.destroy
   end
 
   private

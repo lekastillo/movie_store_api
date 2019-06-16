@@ -1,7 +1,8 @@
-class MovieUpdate < ApplicationRecord
-  paginates_per 10
-  belongs_to :movie
-  validates :field, :previus_value, :movie_id, presence: true
+class MovieUpdateSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
+  attributes :field, :previus_value, :movie_id
+
 
 end
 

@@ -13,11 +13,17 @@ Rails.application.routes.draw do
       member do
         put 'enable'
         put 'disable'
+        get 'log'
       end
     end
 
     resources :user_favorite_movies, path: '/favorite_movies'
 
     resources :purchases, only: [:index, :show, :create]
+    resources :rents, only: [:index, :show, :create] do
+      member do
+        put 'return'
+      end
+    end
   end
 end

@@ -3,7 +3,7 @@ class V1::UserFavoriteMoviesController < ApplicationController
   before_action :set_user_favorite_movie, only: [:show, :update, :destroy]
   # GET /v1/user_favorite_movies
   def index
-    page = params[:page][:number] rescue 1
+    page = params[:page] rescue 1
     @user_favorite_movies = current_resource_owner.user_favorite_movies.all.page(page)
 
     render json: @user_favorite_movies

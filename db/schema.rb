@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_131655) do
+ActiveRecord::Schema.define(version: 2019_06_11_181905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,12 +64,24 @@ ActiveRecord::Schema.define(version: 2019_06_11_131655) do
     t.index ["purchase_id"], name: "index_movie_purchases_on_purchase_id"
   end
 
+  create_table "movie_rents", force: :cascade do |t|
+    t.bigint "rent_id"
+    t.bigint "movie_id"
+    t.integer "quantity", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_rents_on_movie_id"
+    t.index ["rent_id"], name: "index_movie_rents_on_rent_id"
+  end
+
   create_table "movie_updates", force: :cascade do |t|
     t.string "field"
     t.text "previus_value"
     t.bigint "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_id"
+    t.index ["admin_id"], name: "index_movie_updates_on_admin_id"
     t.index ["movie_id"], name: "index_movie_updates_on_movie_id"
   end
 
@@ -138,6 +150,21 @@ ActiveRecord::Schema.define(version: 2019_06_11_131655) do
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
+  create_table "rents", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "status", default: 0
+    t.date "rental_end_date"
+    t.date "rental_return_date"
+    t.boolean "return_on_time", default: true
+    t.integer "delayed_return_days", default: 0
+    t.decimal "rental_total_ammount", precision: 5, scale: 1, default: "0.0"
+    t.decimal "delayed_rental_penalty_amount", precision: 5, scale: 1, default: "0.0"
+    t.decimal "total_to_pay", precision: 5, scale: 1, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_rents_on_user_id"
+  end
+
   create_table "user_favorite_movies", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "movie_id"
@@ -168,10 +195,14 @@ ActiveRecord::Schema.define(version: 2019_06_11_131655) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "movie_purchases", "movies"
   add_foreign_key "movie_purchases", "purchases"
+  add_foreign_key "movie_rents", "movies"
+  add_foreign_key "movie_rents", "rents"
+  add_foreign_key "movie_updates", "admins"
   add_foreign_key "movie_updates", "movies"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "purchases", "users"
+  add_foreign_key "rents", "users"
   add_foreign_key "user_favorite_movies", "movies"
   add_foreign_key "user_favorite_movies", "users"
 end

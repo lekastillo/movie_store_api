@@ -19,7 +19,7 @@ class MoviePurchase < ApplicationRecord
   def movie_availability
 
     if movie.stock < quantity
-      errors.add(:availability, "No hay suficientes")
+      errors.add(:availability, "No hay suficientes: #{movie.title}")
     end
   end
 

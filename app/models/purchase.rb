@@ -1,4 +1,5 @@
 class Purchase < ApplicationRecord
+  paginates_per 10
   belongs_to :user
   has_many :movie_purchases, dependent: :delete_all
 
