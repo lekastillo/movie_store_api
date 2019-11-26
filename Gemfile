@@ -65,5 +65,5 @@ gem 'aasm', '~> 5.0.5'
 gem 'pg_search', '~> 2.2.0'
 gem 'everett', '~> 0.3.0'
 gem 'doorkeeper', '~> 5.1.0'
-gem 'devise', '~> 4.6.2'
+gem 'devise', '~> 4.7.1'
 
